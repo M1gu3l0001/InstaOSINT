@@ -206,6 +206,8 @@ for i in range(0,10):
         with open("fwersid.txt", "w")as f:
             f.write(str(i['pk']))
 
+            # In construction
+
 
 
 
