@@ -12,23 +12,29 @@ print(asciiart.ascii_art)
 import re
 import requests
 import json
+import configparser
 from getpass import getpass
 from datetime import datetime
 class globaluser:
-    if os.getenv('LANG') == 'pt_BR.UTF-8':
 
-        user_username = input("[InstaOSINT] Insira o seu nome de usuário: ")
+    config = configparser.ConfigParser(interpolation=None)
+    config.read("config.ini")
+    username = config['Config']['username']
+    password = config['Config']['password']
+    if os.getenv('LANG') == 'pt_BR.UTF-8':
+        
+        user_username = username
         if (user_username == ''):
             print("O nome de usuário não pode ser vazio")
             exit()  
-        user_password = getpass('[InstaOSINT] Insira a sua senha: ')
+        user_password = password
     if os.getenv('LANG') == 'en_US.UTF-8':
             
-            user_username = input("[InstaOSINT] Enter your username: ")
+            user_username = username
             if (user_username == ''):
                 print("The username can't be empty")
                 exit()  
-            user_password = getpass('[InstaOSINT] Enter your password: ')
+            user_password = password
 
 if os.getenv('LANG') == 'en_US.UTF-8':
     for i in range(0,1):
@@ -87,7 +93,7 @@ if os.getenv('LANG') == 'en_US.UTF-8':
         class emailphone:
             user_username = globaluser.user_username
             user_password = globaluser.user_password
-            target_username = input('[InstaOsint] put tha username that you want to fetch the email and number phone:')
+            target_username = input('[InstaOsint] put the username that you want to fetch the email and number phone:')
         
 
             if not os.path.exists("cookie.json"):
@@ -211,15 +217,13 @@ if os.getenv('LANG') == 'en_US.UTF-8':
             iddata.write(str(i['pk']))
 
         f1 = open('cookie.json')
-        iddata = json.load('fwersid.txt')
+        with open("fwersid.txt") as f:
+            iddata = f.readlines()
         data1 = json.load(f1)
-        response = requests.get('https://www.instagram.com/' + iddata['pk'] + '/?__a=1', cookies=cookie)
-        with open("response.json", "w") as f:
-            f.write(response.text)
-        f = open('response.json')
-        data = json.load(f)
-        id = data["graphql"]["user"]["id"]
-        url = "https://i.instagram.com/api/v1/users/" + iddata['pk'] + "/info/"
+        url = "https://i.instagram.com/api/v1/users/" + str(iddata) + "/info/"
+        print(iddata)
+        res = str(iddata)[1:-1]
+        print(iddata)
         print(url)
         response2 = requests.get(url, cookies=cookie, headers={"x-ig-app-id": "936619743392459"})
         print(response2.status_code)
@@ -238,7 +242,7 @@ if os.getenv('LANG') == 'en_US.UTF-8':
         print(phone)
         print(email)
 
-        with open("resultado.txt", "a") as f:
+        with open("result.txt", "a") as f:
             f.write(bemailpassword.target_username + " - " + phone + " - " + email + "\n")
             
         print("file saved with name 'result.txt'")
@@ -492,3 +496,5 @@ if os.getenv('LANG') == 'pt_BR.UTF-8':
         exit()
     else:
         print('Opção Inválida')
+
+#line 500 bruh
