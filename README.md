@@ -29,4 +29,6 @@ Fuctions:
 
 99.Exit the program "working"
 
-Note: the program is in Brazillian Portuguese, but i will add english anyways
+~Note: the program is in Brazillian Portuguese, but i will add english anyways~
+
+NOT NOW I ADDED ENGLISH HAHAHHAHAH, thank you, thank you
