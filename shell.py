@@ -172,7 +172,8 @@ if os.getenv('LANG') == 'en_US.UTF-8':
             user_username = globaluser.user_username
             user_password = globaluser.user_password
             target_username = input('[InstaOsint] put the username that you want to fetch email and number phone from followers:')
-
+        if os.path.exists('fwersid.txt'):
+            os.remove('fwersid.txt')
         if not os.path.exists("cookie.json"):
             class getcookie:
                 link = 'https://www.instagram.com/accounts/login/'
@@ -213,43 +214,44 @@ if os.getenv('LANG') == 'en_US.UTF-8':
         data = json.load(rf)
         for i in data['users']:
             print(i['pk'])
-        with open("fwersid.txt", "w")as iddata:
-            iddata.write(str(i['pk']))
+            with open("fwersid.txt", "a")as iddata:
+                iddata.write(str(i['pk']) + "\n")
 
         f1 = open('cookie.json')
         with open("fwersid.txt") as f:
             iddata = f.readlines()
         data1 = json.load(f1)
-        url = "https://i.instagram.com/api/v1/users/" + str(iddata) + "/info/"
-        print(iddata)
-        res = str(iddata)[1:-1]
-        print(iddata)
-        print(url)
-        response2 = requests.get(url, cookies=cookie, headers={"x-ig-app-id": "936619743392459"})
-        print(response2.status_code)
-        print(response2.headers)
-        with open("response2.json", "w") as f:
-            f.write(response2.text)
-        f2 = open('response2.json')
-        data2 = json.load(f2)
-        phone = data2["user"]["contact_phone_number"]
-        if (phone == None):
-            print("[InstaOsint] Failed to fetch number phone")
-        email = data2["user"]["public_email"]
-        if (email == None):
-            print("[InstaOsint] Failed to fetch email")
-        clear()
-        print(phone)
-        print(email)
-
-        with open("result.txt", "a") as f:
-            f.write(bemailpassword.target_username + " - " + phone + " - " + email + "\n")
+        for i in iddata:
+            url = "https://i.instagram.com/api/v1/users/" + str(i).strip() + "/info/"
+            print(iddata)
+            print(url)
+            response2 = requests.get(url, cookies=cookie, headers={"x-ig-app-id": "936619743392459"})
+            print(response2.status_code)
+            print(response2.headers)
+            with open("response2.json", "w") as f:
+                f.write(response2.text)
+            f2 = open('response2.json')
+            data2 = json.load(f2)
             
-        print("file saved with name 'result.txt'")
-
-
-
-
+            try:
+                fwersphone = data2["user"]["contact_phone_number"]
+            except KeyError:
+                pass
+            
+            try:
+                fwersemail = data2["user"]["public_email"]
+            except KeyError:
+                pass
+            try:
+                fwersusername = data2["user"]["username"]
+            except KeyError:
+                pass
+                with open("fwersresult.txt", "a") as f:
+                    f.write(fwersusername + " - " + fwersphone + " - " + fwersemail + "\n")
+                print(fwersusername, fwersemail, fwersphone)
+                    
+        
+        print("file saved with name 'fwersresult.txt'")
 
 
 
