@@ -13,7 +13,9 @@ then:
 
 Linux: ```./InstaOSINT```
 
-Windows: Double-click on the executable 
+Windows: Double-click on the executable
+
+Obs: **You need to put your username and password on the config.ini file**
 
 Fuctions:
 
