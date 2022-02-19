@@ -1,6 +1,7 @@
 def goto(linenum):
     global line
     line = linenum
+from contextlib import suppress
 import os
 clear = lambda: os.system('clear')
 clear()
@@ -217,38 +218,42 @@ if os.getenv('LANG') == 'en_US.UTF-8':
             with open("fwersid.txt", "a")as iddata:
                 iddata.write(str(i['pk']) + "\n")
 
-        f1 = open('cookie.json')
+        f1 = open('cookie.json') #user credentials
         with open("fwersid.txt") as f:
-            iddata = f.readlines()
-        data1 = json.load(f1)
+            iddata = f.readlines() # read all lines at once
+        data1 = json.load(f1) 
+        f2 = open('response2.json')
+        data2 = json.load(f2)
+    class bruh:    
         for i in iddata:
-            url = "https://i.instagram.com/api/v1/users/" + str(i).strip() + "/info/"
-            print(iddata)
-            print(url)
-            response2 = requests.get(url, cookies=cookie, headers={"x-ig-app-id": "936619743392459"})
-            print(response2.status_code)
-            print(response2.headers)
-            with open("response2.json", "w") as f:
-                f.write(response2.text)
-            f2 = open('response2.json')
-            data2 = json.load(f2)
-            
-            try:
-                fwersphone = data2["user"]["contact_phone_number"]
-            except KeyError:
-                pass
-            
-            try:
-                fwersemail = data2["user"]["public_email"]
-            except KeyError:
-                pass
-            try:
+                url = "https://i.instagram.com/api/v1/users/" + str(i).strip() + "/info/"
+                print(iddata)
+                print(url)
+                response2 = requests.get(url, cookies=cookie, headers={"x-ig-app-id": "936619743392459"})
+                print(response2.status_code)
+                print(response2.headers)
+                with open("response2.json", "w") as f:
+                    f.write(response2.text)
+                with suppress(KeyError):
+                    if data2["user"]["contact_phone_number"] in data2:
+                        fwersphone = data2["user"]["contact_phone_number"]
+                with suppress(KeyError):  
+                    if data2["user"]["public_email"] in data2:
+                        fwersemail = data2["user"]["public_email"]
+                    
+                
+                
                 fwersusername = data2["user"]["username"]
-            except KeyError:
-                pass
-                with open("fwersresult.txt", "a") as f:
-                    f.write(fwersusername + " - " + fwersphone + " - " + fwersemail + "\n")
-                print(fwersusername, fwersemail, fwersphone)
+                
+                with suppress(NameError):
+                    with open ("fwersresult.txt", "a") as f:
+                        f.write(fwersusername + " - " + fwersphone + " - " + fwersemail + "\n")
+                with suppress(NameError):
+                    print(fwersphone)
+                    print(fwersemail)
+                    print(fwersusername)
+        
+                    
                     
         
         print("file saved with name 'fwersresult.txt'")
