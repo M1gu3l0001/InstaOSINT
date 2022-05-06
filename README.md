@@ -11,7 +11,7 @@ Fist of all install the requirements:
 
 then:
 
-Linux: ```./InstaOSINT```
+Linux: ```chmod +x ./InstaOsint ``` and then ```./InstaOSINT```
 
 Windows: Double-click on the executable
 
