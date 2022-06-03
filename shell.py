@@ -487,13 +487,6 @@ if os.getenv('LANG') == 'pt_BR.UTF-8':
             
         print("arquivo salvo com o nome ""resultado.txt""")
 
-
-
-
-
-
-
-
     if (choice == 99):
         print('Saindo...')
         print('Developed by M1gu3l0001')
