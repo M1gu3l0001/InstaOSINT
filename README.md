@@ -15,7 +15,7 @@ Linux: ```chmod +x ./InstaOsint ``` and then ```./InstaOSINT```
 
 Windows: Double-click on the executable
 
-Obs: **You need to put your username and password on the config.ini file**, if your password contains a hashtag(#), please, use the password inside double-quotes
+Warning: **You need to put your username and password on the config.ini file**, if your password contains a hashtag(#), please, use the password inside double-quotes
 
 Fuctions:
 
