@@ -237,7 +237,7 @@ def main():
         
         #Login or load session
         username = globaluser.username
-        password = globaluser.password
+        password = globaluser.password.replace('"', '')
         L.login(username, password)  # (login)
         
         #Obtain profile metadata
@@ -250,7 +250,7 @@ def main():
             open('followersId.json', 'w').write(str({"followerId": follow_list} ).replace("'", '"'))
             print(follow_list)
         followersId = open('followersId.json', 'r').read()
-        print(followersId["followerId"][0])
+        print(str(followersId["followerId"][0]))
         main()
     if (choice == 99):
         print('Leaving...')
