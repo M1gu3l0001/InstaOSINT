@@ -236,8 +236,8 @@ def main():
         L = instaloader.Instaloader()
         
         #Login or load session
-        username = "m1gu3l0001"
-        password = "M1gu3lPC@#wowidk"
+        username = globaluser.username
+        password = globaluser.password
         L.login(username, password)  # (login)
         
         #Obtain profile metadata
